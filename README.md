@@ -16,26 +16,24 @@ prerequisite:
  $vi makefile
   then modify DATABASE, MACHINE, WORKLOAD like :
   
-  ################
-## CHANGE NAME OF ANSI COMPILER HERE
-################
+
+CHANGE NAME OF ANSI COMPILER HERE
+
 CC      = gcc
- Current values for DATABASE are: INFORMIX, DB2, TDAT (Teradata)
-                                  SQLSERVER, SYBASE, ORACLE
- Current values for MACHINE are:  ATT, DOS, HP, IBM, ICL, MVS, 
-                                  SGI, SUN, U2200, VMS, LINUX, WIN32 
- Current values for WORKLOAD are:  TPCH
+Current values for DATABASE are: INFORMIX, DB2, TDAT (Teradata) SQLSERVER, SYBASE, ORACLE
+Current values for MACHINE are:  ATT, DOS, HP, IBM, ICL, MVS,SGI, SUN, U2200, VMS, LINUX, WIN32 
+Current values for WORKLOAD are:  TPCH
 DATABASE= SQLSERVER
 MACHINE = LINUX
 WORKLOAD = TPCH
-########################
+
 
 ****** step2
 
 we need to modify tpcd.h as below:
 find #ifdef SQLSERVER and modify as deinfe START_TRAN, define END_TRAN, define SET_ROWCOUNT, and deinfe SET_DBASE as it's shown below:
 
-############################################
+
 #ifdef  SQLSERVER
 #define GEN_QUERY_PLAN  "set showplan on\nset noexec on\ngo\n"
 #define START_TRAN      "BEGIN WORK;"
@@ -44,7 +42,7 @@ find #ifdef SQLSERVER and modify as deinfe START_TRAN, define END_TRAN, define S
 #define SET_ROWCOUNT    "limit %d;\n\n"
 #define SET_DBASE       "use %s;\n"
 #endif
-###############################################
+
 
 ******steop 3
 $make
